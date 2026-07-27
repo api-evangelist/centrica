@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: Identity API
+  description: API to Generate the Token
+  version: '1.0'
+servers:
+  - url: https://api.dev.fieldops.centrica.com/api/v1/identity
+paths:
+  /oauth2/token:
+    post:
+      summary: OAuth Access Token
+      description: Get Access token
+      operationId: oauth-access-token
+      requestBody:
+        description: Provide the client ID and client Secret
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                grant_type:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+            example: grant_type=client_credentials&client_id=<<clientid>>&client_secret=<<clientsecret>>
+      responses:
+        '200':
+          description: Token response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Oauth2TokenPost200ApplicationJsonResponse'
+              example:
+                token_type: Bearer
+                expires_in: '3599'
+                ext_expires_in: '3599'
+                expires_on: '1623320276'
+                not_before: '1623316376'
+                resource: 00000002-0000-0000-c000-000000000000
+                access_token: XXXXXXX
+components:
+  schemas:
+    Oauth2TokenPost200ApplicationJsonResponse:
+      title: TokenResponse
+      required:
+        - token_type
+        - access_token
+      type: object
+      properties:
+        token_type:
+          type: string
+        expires_in:
+          type: string
+        ext_expires_in:
+          type: string
+        expires_on:
+          type: string
+        not_before:
+          type: string
+        resource:
+          type: string
+        access_token:
+          type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

@@ -1,0 +1,263 @@
+aid: centrica
+name: Centrica
+review:
+  question: >-
+    Does Centrica (British Gas) publish a public developer API, and does any energy
+    consumer-data mandate actually bind and get implemented by it?
+  answer: partial
+  date: '2026-07-27'
+  reviewer: API Evangelist
+  summary: >-
+    One publicly reachable developer surface exists — the Centrica FieldOps Azure API
+    Management developer portal, in its DEVELOPMENT environment — from which one real
+    OpenAPI 3.0.1 document was harvested. There is no consumer energy data API, no
+    Green Button, no Consumer Data Right, and no open market data published by Centrica
+    itself. The UK obligation that does bind British Gas is discharged by manual request,
+    not by an API.
+
+mandate:
+  homeMarket: United Kingdom (plus Republic of Ireland via Bord Gais Energy)
+  regime: smart-meter-infrastructure
+  status: designated-not-live
+  regimeVerbatim: >-
+    Britain mandated the INFRASTRUCTURE, not the data right. The Smart Data Communications
+    Company (Smart DCC) is a licensed monopoly carrying SMETS2 smart-meter traffic, and
+    British Gas is a DCC user as a licensed supplier — but the DCC is a regulated
+    industry network, not a public API, and Centrica publishes no consumer-facing endpoint
+    on top of it. There is NO United Kingdom equivalent of the Australian Consumer Data
+    Right for energy: no accredited-recipient regime, no designated data holders, no
+    standards-conformant consumer base URI. The one consumer-adjacent obligation found is
+    the DESNZ (Department for Energy Security and Net Zero) non-domestic smart meter data
+    access requirement, cited by British Gas Business itself on
+    https://www.britishgas.co.uk/business/blog/the-way-businesses-can-request-smart-meter-data-is-changing
+    (HTTP 200, fetched 2026-07-27): part one in force 1 December 2022 (data on request),
+    part two in force 1 October 2024 (default offer of data). Business customers, or a
+    third party they nominate, get up to twelve months of historic smart meter usage data
+    free of charge and the supplier must respond within ten working days.
+  implementationVerdict: >-
+    MANDATE IS NOT AN IMPLEMENTATION. The DESNZ obligation is genuinely in force and
+    British Gas states it complies — but the compliance mechanism is a written request
+    answered by a human within ten working days. No endpoint, no register entry, no
+    schema, no standard. The British Gas page carries no API reference of any kind. That
+    is the finding: an in-force UK data-access obligation discharged entirely through
+    non-API channels.
+  cdrEnergy: not-applicable — Centrica has no Australian operations; no CDR register entry sought or found.
+  greenButton: >-
+    not-applicable — Centrica exited North America when it sold Direct Energy to NRG Energy
+    on 5 January 2021, so the Ontario Green Button regulation and the US voluntary
+    Green Button / ESPI ecosystem no longer touch any Centrica entity. No Green Button
+    Alliance certification, Download My Data, or Connect My Data surface exists.
+
+dataStandard:
+  implemented: no standard reference found
+  detail: >-
+    No Green Button / ESPI, no CDR Consumer Data Standards (energy), no IEEE 2030.5,
+    no OpenADR, no OCPP or OCPI, no IEC CIM 61968/61970 reference was found on any
+    Centrica or British Gas property. The only standards in play are UK SMETS2 / Smart DCC
+    on the metering infrastructure side, which is a regulated industry network rather
+    than a published API, and generic OpenAPI 3.0.1 + OAuth2 client_credentials on the
+    FieldOps partner platform.
+
+dataSplit:
+  consumerDataApi: false
+  consumerDataDetail: >-
+    No third party can obtain an individual customer's usage or billing data from Centrica
+    through a documented API. Household customers see their own consumption only inside
+    the British Gas app and web account. Business customers use the Energy360 DataView
+    portal (https://www.britishgas.co.uk/business/gas-and-electricity/energy360, HTTP 200)
+    which is a login-gated web tool, not an API. The DESNZ non-domestic entitlement is
+    fulfilled by email/telephone request. Hive, Centrica's connected-home brand, has never
+    published an official public API; community Home Assistant integrations reverse-engineer
+    the undocumented Hive backends (beekeeper.hivehome.com answered 403, sso.hivehome.com
+    answered 200 HTML but /.well-known/openid-configuration answered 403).
+  marketDataOpen: false
+  marketDataDetail: >-
+    Centrica publishes no open grid, system or market data of its own. Centrica Energy
+    (centricaenergy.com, HTTP 200) is a trading business — power, gas and LNG, PPAs,
+    biomethane, certificates, battery and flexibility optimisation — and its site names no
+    data platform, API or open data offering. Its internal analytics platform (APE) is not
+    public. Centrica's REMIT Article 4(1) inside-information / urgent market messages site
+    www.centricaremit.com is indexed by search engines but TIMED OUT on every probe
+    (HTTP 000, connection timeout after 20s, on /, /index.asp?pageid=1202 and /robots.txt),
+    so no live REMIT disclosure feed could be confirmed. The genuinely open UK energy data
+    — NESO Carbon Intensity, Elexon BMRS/Insights, the DNO open-data portals — is published
+    by those bodies, not by Centrica. Centrica is a consumer of that open data, not a
+    publisher of it. THE SPLIT IS THE FINDING: closed on consumer data, and absent from
+    open market data as well.
+
+access:
+  gate: partner-only
+  gated: true
+  whatADeveloperMustDo: >-
+    There is no public Centrica developer programme to join. The only live portal is
+    Centrica FieldOps API Management (https://api-developer.dev.fieldops.centrica.com/,
+    HTTP 200), which is a partner field-operations platform in its DEVELOPMENT environment;
+    it offers an open Sign up form and two default Azure APIM products — "Starter"
+    (5 calls/minute, 100 calls/week, subscription required, approval NOT required) and
+    "Unlimited" (subscription required, administrator approval required). The portal home
+    page advertises three business APIs — WorkOrder (annual service visits, intermediate
+    breakdowns), Opportunity (electric vehicle sales opportunities) and Appointment Slots
+    (get and reserve appointments for work orders) — but NONE of them are visible
+    anonymously; the anonymous API list returns only the Identity API. The production hosts
+    api-developer.fieldops.centrica.com and api.fieldops.centrica.com both answer 403, so
+    real access is a commercial partner arrangement with Centrica's field-service business.
+    A consumer or fintech developer wanting energy usage data has no route at all beyond
+    asking the customer to request it in writing.
+  authModel: >-
+    OAuth2 client_credentials grant — POST /oauth2/token with grant_type, client_id and
+    client_secret as application/x-www-form-urlencoded, returning a Bearer token
+    (token_type, access_token, expires_in, expires_on, not_before, resource) — layered
+    under Azure API Management subscription keys sent as the Ocp-Apim-Subscription-Key
+    header or the subscription-key query parameter. No anonymous OpenID Connect discovery
+    document is served: /.well-known/openid-configuration returned 404 on
+    www.britishgas.co.uk and auth.britishgas.co.uk, 403 on sso.hivehome.com and
+    beekeeper.hivehome.com, 502 on api.britishgas.co.uk, and 400 on the FieldOps APIM host.
+
+probes:
+  - url: https://www.centrica.com/
+    status: 403
+    note: Corporate site blocks anonymous automated fetches (WAF). /developers, /api and /data all 403 as well.
+  - url: https://developer.centrica.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://developers.centrica.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api.centrica.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://docs.centrica.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://data.centrica.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://www.britishgas.co.uk/
+    status: 200
+    note: Retail supplier site. No developer area.
+  - url: https://developer.britishgas.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://developers.britishgas.co.uk/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api.britishgas.co.uk/
+    status: 502
+    note: Host exists and terminates TLS but returns Bad Gateway to anonymous requests; /openapi.json and /.well-known/openid-configuration also 502.
+  - url: https://www.britishgas.co.uk/openapi.json
+    status: 404
+  - url: https://www.britishgas.co.uk/swagger.json
+    status: 404
+  - url: https://www.britishgas.co.uk/api-docs
+    status: 404
+  - url: https://www.britishgas.co.uk/.well-known/security.txt
+    status: 200
+    note: Redirects to /global-maintenance/security.txt, text/plain. Vulnerability disclosure only.
+  - url: https://api-developer.dev.fieldops.centrica.com/
+    status: 200
+    note: Centrica FieldOps API Management developer portal, Azure API Management. DEVELOPMENT environment. Advertises WorkOrder, Opportunity and Appointment Slots APIs and "99.95% availability" for mission-critical systems.
+  - url: https://api-developer.dev.fieldops.centrica.com/apis
+    status: 200
+  - url: https://api-developer.dev.fieldops.centrica.com/signup
+    status: 200
+    note: Open self-serve sign-up form on the development portal.
+  - url: https://api-developer.dev.fieldops.centrica.com/config.json
+    status: 200
+    note: Exposes managementApiUrl https://api-management.dev.fieldops.centrica.com/... service fieldopsdev001, api-version 2022-04-01-preview.
+  - url: https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/apis?api-version=2022-04-01-preview
+    status: 200
+    note: Anonymous API list returns exactly one API — identity-api — count 1.
+  - url: https://api-management.dev.fieldops.centrica.com/.../products?api-version=2022-04-01-preview
+    status: 200
+    note: Two products, Starter (approvalRequired false, 5 calls/min, 100 calls/week) and Unlimited (approvalRequired true).
+  - url: https://api-management.dev.fieldops.centrica.com/.../apis/identity-api?format=openapi&export=true&api-version=2022-04-01-preview
+    status: 200
+    note: Returned a valid OpenAPI 3.0.1 document; saved verbatim.
+  - url: https://api-developer.fieldops.centrica.com/
+    status: 403
+    note: Production developer portal is closed to anonymous access.
+  - url: https://api.fieldops.centrica.com/
+    status: 403
+    note: Production gateway is closed to anonymous access.
+  - url: https://api.dev.fieldops.centrica.com/
+    status: 404
+    note: Development gateway host resolves; root path not routed.
+  - url: https://centricaenergy.com/
+    status: 200
+    note: Trading arm. Power, gas, LNG, PPAs, flexibility. No API, data platform or open data mentioned. /api and /data both 404.
+  - url: https://developer.centricaenergy.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: https://api.centricaenergy.com/
+    status: 000
+    note: DNS does not resolve.
+  - url: http://www.centricaremit.com/
+    status: 000
+    note: Centrica's REMIT Article 4(1) urgent market messages site. Connection timed out after 20s on /, /index.asp?pageid=1202 and /robots.txt. No live disclosure feed confirmable.
+  - url: https://www.centricabusinesssolutions.com/
+    status: 200
+    note: /api and /developers both 404. No developer area.
+  - url: https://www.hivehome.com/
+    status: 200
+    note: Connected-home brand. developer.hivehome.com, api.hivehome.com and docs.hivehome.com do not resolve.
+  - url: https://beekeeper.hivehome.com/
+    status: 403
+    note: Undocumented Hive backend used by community reverse-engineered integrations. Not a published API.
+  - url: https://www.bordgaisenergy.ie/
+    status: 200
+    note: Irish supply arm. api. and developer. subdomains do not resolve.
+  - url: https://www.britishgas.co.uk/business/gas-and-electricity/energy360
+    status: 200
+    note: Energy360 DataView — login-gated web portal for business smart meter data. Not an API.
+  - url: https://www.britishgas.co.uk/business/blog/the-way-businesses-can-request-smart-meter-data-is-changing
+    status: 200
+    note: Source for the DESNZ non-domestic smart meter data access dates (1 Dec 2022, 1 Oct 2024), the twelve-month entitlement and the ten-working-day response commitment. No API mentioned.
+  - url: https://api.github.com/orgs/Centrica
+    status: 200
+    note: 0 public repositories.
+  - url: https://api.github.com/orgs/ConnectedHomes
+    status: 200
+    note: Centrica Connected Home (Hive) — 163 public repositories, overwhelmingly forks of React Native, Kafka and infrastructure tooling. No OpenAPI, AsyncAPI or published API contract for a Centrica product.
+
+specs:
+  - path: openapi/centrica-fieldops-identity-api-openapi.yml
+    format: OpenAPI 3.0.1
+    sourceURL: https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/apis/identity-api?format=openapi&export=true&api-version=2022-04-01-preview
+    httpStatus: 200
+    fetchDate: '2026-07-27'
+    parsed: true
+    operations: 1
+    server: https://api.dev.fieldops.centrica.com/api/v1/identity
+    note: >-
+      Exported verbatim from Centrica's own Azure API Management instance. Development
+      environment. Single operation POST /oauth2/token. Security schemes are the Azure
+      APIM subscription key in header (Ocp-Apim-Subscription-Key) and in query
+      (subscription-key).
+
+sources:
+  - url: https://api-developer.dev.fieldops.centrica.com/
+    type: DeveloperPortal
+    note: Only publicly reachable Centrica developer portal found. Development environment.
+  - url: https://www.britishgas.co.uk/business/blog/the-way-businesses-can-request-smart-meter-data-is-changing
+    type: Documentation
+    note: DESNZ non-domestic smart meter data access mandate, dates and ten-working-day manual process.
+  - url: https://www.britishgas.co.uk/business/gas-and-electricity/energy360
+    type: Documentation
+    note: Energy360 DataView login-gated business energy data portal.
+  - url: https://centricaenergy.com/
+    type: Website
+    note: Trading arm; no data platform, API or open data offering named.
+
+notes: >-
+  Centrica is the control case for the sector question. Australia extended a statutory
+  consumer data right to energy and got identical, register-listed, standards-conformant
+  APIs out of its retailers. Ontario regulated Green Button and got Download My Data and
+  Connect My Data. Britain regulated the pipes instead — a licensed DCC monopoly moving
+  SMETS2 traffic, Elexon settling the balancing market, NESO running the system and
+  publishing a genuinely open Carbon Intensity API — and left the consumer data right
+  unwritten. The result at the largest UK supplier is exactly what that predicts: an
+  in-force DESNZ data-access obligation satisfied by a ten-working-day email, a
+  login-only customer experience, no published standard, no open market data of its own,
+  and the only reachable developer portal belonging to the field-service partner platform
+  in its development environment. The UK's API-native energy supplier is Octopus, not
+  Centrica, and Octopus built that voluntarily — which is the point.
