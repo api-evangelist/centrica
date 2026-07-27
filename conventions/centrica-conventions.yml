@@ -1,0 +1,98 @@
+generated: '2026-07-27'
+method: derived
+source: >-
+  openapi/centrica-fieldops-identity-api-openapi.yml, the Centrica FieldOps Azure APIM
+  management API, and https://api-developer.dev.fieldops.centrica.com/
+description: >-
+  Cross-cutting request/response semantics for the one Centrica API surface that is publicly
+  reachable — the FieldOps Identity API on Centrica's Azure API Management platform. Centrica
+  publishes no API design guide, no conventions page and no developer documentation beyond the
+  APIM-generated portal, so almost everything here is derived from the harvested spec and the
+  platform configuration rather than from a stated contract. Where a convention is simply not
+  documented it is recorded as null, not guessed: in particular there is NO documented
+  idempotency contract, NO pagination, NO request-id header and NO error envelope, so no
+  Idempotency pointer is emitted in apis.yml.
+authentication:
+  style: >-
+    Two layers. (1) Azure API Management subscription key on every call, sent as the
+    Ocp-Apim-Subscription-Key request header or the subscription-key query parameter — these are
+    the only two securitySchemes declared in the spec. (2) An OAuth 2.0 client_credentials
+    bearer token obtained from POST /oauth2/token and presented to the downstream FieldOps
+    WorkOrder, Opportunity and Appointment Slots APIs.
+  token_endpoint: https://api.dev.fieldops.centrica.com/api/v1/identity/oauth2/token
+  grant: client_credentials
+  request_encoding: application/x-www-form-urlencoded
+  token_type: Bearer
+  token_lifetime: >-
+    The published response example returns expires_in "3599" (seconds) with expires_on and
+    not_before as epoch strings — approximately one hour, per the spec example.
+  artifact: authentication/centrica-authentication.yml
+  note: >-
+    The spec's declared security is the subscription key only; the OAuth2 grant is expressed as
+    a request body on the token operation rather than as an oauth2 securityScheme, so no scope
+    surface exists and no scopes/ artifact is emitted.
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key header, parameter or documented replay contract exists. The single
+    published operation is a token mint, which is not idempotent by construction.
+pagination:
+  supported: false
+  style: null
+  note: The published surface has no collection endpoint.
+field_expansion:
+  supported: false
+sparse_fields:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  correlation_header: null
+  note: >-
+    No request-id or correlation-id header is documented. Azure API Management can emit
+    platform tracing headers, but Centrica documents none, so none is asserted here.
+versioning:
+  style: uri-path
+  current: v1
+  location: https://api.dev.fieldops.centrica.com/api/v1/identity
+  header: null
+  artifact: lifecycle/centrica-lifecycle.yml
+error_envelope:
+  documented: false
+  media_type: null
+  shape: null
+  note: >-
+    The harvested OpenAPI declares only a 200 response and no components schema for errors, and
+    Centrica publishes no error reference. No errors/ artifact is emitted rather than inventing
+    an Azure APIM default error shape.
+rate_limiting:
+  documented: true
+  documented_where: Azure APIM product descriptions on the developer portal
+  limits:
+  - 5 calls/minute and 100 calls/week on the Starter product
+  - unlimited on the Unlimited product, administrator approval required
+  signalling_headers: null
+  throttle_status: null
+  artifact: rate-limits/centrica-rate-limits.yml
+  note: The quota values are published; the way a breach is signalled to the client is not.
+content_types:
+  request:
+  - application/x-www-form-urlencoded
+  response:
+  - application/json
+transport:
+  protocols:
+  - https
+  http_only: false
+  note: The APIM API record declares protocols ["https"] — plaintext HTTP is not offered.
+cross_links:
+  authentication: authentication/centrica-authentication.yml
+  lifecycle: lifecycle/centrica-lifecycle.yml
+  rate_limits: rate-limits/centrica-rate-limits.yml
+  plans: plans/centrica-plans.yml
+  conformance: conformance/centrica-conformance.yml
+  sandbox: sandbox/centrica-sandbox.yml

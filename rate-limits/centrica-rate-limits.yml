@@ -1,0 +1,60 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Centrica
+providerId: centrica
+generated: '2026-07-27'
+method: searched
+created: '2026-07-27'
+modified: '2026-07-27'
+tags:
+- Rate Limiting
+- Field Service
+- Partner
+description: >-
+  The only rate limits Centrica publishes anywhere are carried in the product descriptions
+  of the two Azure API Management products on the Centrica FieldOps developer portal
+  (DEVELOPMENT environment): the Starter product states 5 calls/minute up to a maximum of
+  100 calls/week, and the Unlimited product states unlimited access subject to administrator
+  approval. Both strings were read verbatim from Centrica's own APIM management API.
+  Centrica publishes no rate-limit documentation page, no header contract and no documented
+  throttle response — the OpenAPI for the Identity API declares only a 200 response, so the
+  throttling status code and any RateLimit-* / Retry-After headers are undocumented and are
+  deliberately left null here rather than assumed from Azure APIM platform defaults.
+sources:
+- https://api-developer.dev.fieldops.centrica.com/products
+- https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/products?api-version=2022-04-01-preview
+headers:
+  requestId: null
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  note: No rate-limit or request-id header contract is documented by Centrica.
+responseCodes:
+  throttled: null
+  note: >-
+    Not documented. The harvested OpenAPI declares no 4xx/5xx responses at all, so no
+    throttle status code can be asserted without inventing Azure APIM platform behaviour.
+limits:
+- name: Starter product — requests per minute
+  scope: subscription
+  plan: centrica-fieldops-starter
+  metric: requests_per_minute
+  limit: 5
+  timeFrame: minute
+  source: Azure APIM product description, verbatim
+- name: Starter product — requests per week
+  scope: subscription
+  plan: centrica-fieldops-starter
+  metric: requests_per_week
+  limit: 100
+  timeFrame: week
+  source: Azure APIM product description, verbatim
+- name: Unlimited product
+  scope: subscription
+  plan: centrica-fieldops-unlimited
+  metric: requests
+  limit: -1
+  timeFrame: usage
+  source: Azure APIM product description, verbatim — administrator approval required

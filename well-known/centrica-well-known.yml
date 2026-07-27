@@ -1,0 +1,126 @@
+generated: '2026-07-27'
+method: searched
+source: live probes of every Centrica / British Gas host in apis.yml and openapi/ servers[]
+description: >-
+  Index of the /.well-known/ discovery surface across every Centrica-controlled host.
+  Two documents answer 200 and were saved verbatim: an RFC 9116 security.txt on
+  www.britishgas.co.uk pointing at the British Gas responsible-disclosure policy, and a
+  full OpenID Connect discovery document on www.centrica.com. The latter is NOT a Centrica
+  developer API — it is the Umbraco CMS member-authentication surface of the corporate
+  website (issuer https://www.centrica.com/, endpoints under /umbraco/delivery/api/v1/security/member/).
+  It is recorded because it is a real, anonymous, machine-readable OAuth2/OIDC contract
+  published on a Centrica host. The Umbraco Delivery API endpoints themselves
+  (/umbraco/delivery/api/v2/content, /umbraco/swagger/delivery/swagger.json) are blocked by
+  the corporate WAF and return 403, so no OpenAPI could be harvested from that host.
+  The FieldOps partner platform hosts serve no /.well-known/ documents at all.
+hosts:
+- host: https://www.centrica.com
+  note: Corporate site. Umbraco CMS. WAF returns 403 on nearly every path; /.well-known/* and /robots.txt pass.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json;charset=UTF-8
+    file: centrica-openid-configuration.json
+    note: >-
+      Umbraco member-authentication OIDC discovery. issuer https://www.centrica.com/;
+      grant_types authorization_code, refresh_token, client_credentials; scopes openid,
+      offline_access; PKCE S256 and plain; RS256 id tokens; token endpoint auth methods
+      client_secret_post, client_secret_basic, private_key_jwt.
+  - path: /.well-known/jwks
+    status: 200
+    content_type: application/json;charset=UTF-8
+    file: centrica-jwks.json
+    note: Single RS256 signing key advertised by jwks_uri in the discovery document.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://www.britishgas.co.uk
+  note: Retail supply site. No developer area.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    file: centrica-security.txt
+    redirects_to: https://www.britishgas.co.uk/global-maintenance/security.txt
+    note: >-
+      RFC 9116-shaped but minimal — two comment lines and a bare policy URL. No Contact:,
+      Expires:, Encryption: or Preferred-Languages: field, so it does not strictly satisfy
+      RFC 9116 (Contact and Expires are REQUIRED).
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api-developer.dev.fieldops.centrica.com
+  note: Centrica FieldOps Azure API Management developer portal, DEVELOPMENT environment.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api.dev.fieldops.centrica.com
+  note: FieldOps development gateway (the OpenAPI servers[] host).
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://centricaenergy.com
+  note: Centrica Energy trading arm.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+summary:
+  hosts_probed: 5
+  documents_found: 3
+  api_catalog: false
+  ai_plugin: false
+  llms_txt: false

@@ -1,0 +1,22 @@
+generated: '2026-07-27'
+method: generated
+source: openapi/centrica-fieldops-identity-api-openapi.yml
+description: >-
+  Packaged Agent Skills for Centrica. Only one marquee flow exists to ground a skill in — the
+  whole publicly reachable Centrica contract is a single OpenAPI operation. Centrica publishes no
+  AGENTS.md, no skill files and no agent guidance of any kind; every step below is grounded in
+  the one real operationId in the harvested spec.
+skills:
+- file: centrica-fieldops-access-token.md
+  name: Get a Centrica FieldOps access token
+  description: >-
+    Obtain an OAuth 2.0 bearer token from the FieldOps Identity API with partner client
+    credentials plus an Azure APIM subscription key, then use it against the WorkOrder,
+    Opportunity and Appointment Slots APIs.
+  api: openapi/centrica-fieldops-identity-api-openapi.yml
+  operations:
+  - oauth-access-token
+coverage:
+  openapi_operations: 1
+  operations_covered: 1
+provider_published_skills: none found

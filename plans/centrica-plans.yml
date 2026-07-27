@@ -1,0 +1,80 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Centrica
+providerId: centrica
+generated: '2026-07-27'
+method: searched
+created: '2026-07-27'
+modified: '2026-07-27'
+tags:
+- Field Service
+- Partner
+- Energy
+description: >-
+  Centrica publishes no commercial API pricing. The only access tiers that exist anywhere on
+  a Centrica developer surface are the two default Azure API Management products on the
+  Centrica FieldOps developer portal (DEVELOPMENT environment), read verbatim from that
+  portal's own management API. Both are subscription-gated and neither carries a price —
+  they are access tiers, not paid plans. Real FieldOps access is a commercial partner
+  arrangement with Centrica's field-service business; the production portal and gateway
+  (api-developer.fieldops.centrica.com, api.fieldops.centrica.com) both answer 403
+  anonymously. No consumer or business energy-data API is sold at any price.
+sources:
+- https://api-developer.dev.fieldops.centrica.com/products
+- https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/products?api-version=2022-04-01-preview
+plans:
+- id: centrica-fieldops-starter
+  name: Starter
+  type: free
+  description: >-
+    Subscribers will be able to run 5 calls/minute up to a maximum of 100 calls/week.
+    Verbatim product description from the Centrica FieldOps APIM instance.
+  published: true
+  subscriptionRequired: true
+  approvalRequired: false
+  subscriptionsLimit: 1
+  price: not published
+  entries:
+  - label: Requests per minute
+    name: calls_per_minute
+    type: metered
+    metric: requests
+    limit: 5
+    timeFrame: minute
+    unit: 1
+    userMultiplied: false
+  - label: Requests per week
+    name: calls_per_week
+    type: metered
+    metric: requests
+    limit: 100
+    timeFrame: week
+    unit: 1
+    userMultiplied: false
+- id: centrica-fieldops-unlimited
+  name: Unlimited
+  type: custom
+  description: >-
+    Subscribers have completely unlimited access to the API. Administrator approval is
+    required. Verbatim product description from the Centrica FieldOps APIM instance.
+  published: true
+  subscriptionRequired: true
+  approvalRequired: true
+  subscriptionsLimit: 1
+  price: not published
+  entries:
+  - label: Requests
+    name: calls_unlimited
+    type: metered
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    unit: 1
+    userMultiplied: false
+notes: >-
+  These are the stock Azure API Management "Starter" and "Unlimited" product templates,
+  left at their default descriptions. That is itself the finding: Centrica has not curated
+  a commercial API packaging layer. Recorded verbatim rather than interpreted — the
+  5 calls/minute and 100 calls/week figures are Centrica's own published text, not an
+  inference.

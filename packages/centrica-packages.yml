@@ -1,0 +1,68 @@
+generated: '2026-07-27'
+method: searched
+source: live registry and repository searches
+description: >-
+  Centrica ships no first-party client libraries. Every major public registry was searched for
+  a Centrica, British Gas, Bord Gais Energy, Hive or FieldOps SDK and none exists. The only
+  packages that surface under these names are community projects built by reverse-engineering
+  the undocumented Hive connected-home backends — they are third-party, unsupported, and are
+  explicitly NOT marked official. No SDKs pointer is emitted in apis.yml because there is no
+  official client library to point at.
+packages: []
+registries_searched:
+- registry: npm
+  query: centrica
+  result: >-
+    No first-party package. The only related hit is "hive-watcher" (publisher matchett808,
+    git://github.com/matchett808/hive-watcher.git) — a community tool that watches Hive devices
+    and republishes to MQTT.
+- registry: pypi
+  query: centrica
+  result: 404 — no project.
+- registry: maven-central
+  query: centrica / britishgas
+  result: No first-party artifact found.
+- registry: nuget
+  query: centrica
+  result: No first-party package found.
+- registry: pkg.go.dev
+  query: centrica
+  result: No first-party module found.
+- registry: rubygems
+  query: centrica
+  result: No first-party gem found.
+- registry: packagist
+  query: centrica
+  result: No first-party package found.
+- registry: crates.io
+  query: centrica
+  result: No first-party crate found.
+repositories_searched:
+- url: https://api.github.com/orgs/Centrica
+  status: 200
+  result: 0 public repositories.
+- url: https://api.github.com/orgs/ConnectedHomes
+  status: 200
+  result: >-
+    163 public repositories under Centrica Connected Home (Hive), overwhelmingly forks of React
+    Native, Kafka and infrastructure tooling plus a few first-party app libraries
+    (react-native-geolocation "A geolocation library for the Hive RN app", kafka-topic-monitor,
+    sqs-kafka-connect, chaim). None is a client SDK for a published Centrica API, and none
+    carries an OpenAPI or AsyncAPI contract.
+docs_searched:
+- url: https://api-developer.dev.fieldops.centrica.com/
+  status: 200
+  result: >-
+    Azure API Management developer portal. Offers the stock APIM code-sample panel per operation
+    but publishes no SDK, no client library and no package links.
+community_packages:
+- language: javascript
+  registry: npm
+  name: hive-watcher
+  url: https://www.npmjs.com/package/hive-watcher
+  official: false
+  note: >-
+    Third-party. Watches Hive devices and publishes to MQTT against the undocumented
+    beekeeper.hivehome.com backend (which answers 403 anonymously). Not a Centrica product and
+    not supported by Centrica.
+official_sdk_count: 0

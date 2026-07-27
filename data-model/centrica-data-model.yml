@@ -1,0 +1,57 @@
+generated: '2026-07-27'
+method: derived
+source: openapi/centrica-fieldops-identity-api-openapi.yml
+description: >-
+  The entity graph derivable from Centrica's published contract is a single entity. The only
+  OpenAPI on any Centrica surface declares one operation and one component schema — an OAuth 2.0
+  token response — with no $ref links between schemas and no id-reference fields, so there is no
+  relationship graph to draw. The business entities the FieldOps platform actually operates on
+  (WorkOrder, Opportunity, Appointment Slot) are named on the developer portal home page but
+  their schemas are not published anonymously, so they are recorded below as UNMODELLED — named
+  by Centrica, contract withheld — rather than invented.
+entities:
+- name: TokenResponse
+  schema: Oauth2TokenPost200ApplicationJsonResponse
+  source: openapi/centrica-fieldops-identity-api-openapi.yml#/components/schemas/Oauth2TokenPost200ApplicationJsonResponse
+  produced_by: oauth-access-token
+  identifier: null
+  required:
+  - token_type
+  - access_token
+  fields:
+  - {name: token_type, type: string, note: 'Bearer in the published example.'}
+  - {name: access_token, type: string, note: The bearer credential. Secret.}
+  - {name: expires_in, type: string, note: Lifetime in seconds, returned as a string ("3599").}
+  - {name: ext_expires_in, type: string, note: Extended lifetime in seconds, returned as a string.}
+  - {name: expires_on, type: string, note: Unix epoch seconds at which the token expires.}
+  - {name: not_before, type: string, note: Unix epoch seconds before which the token is invalid.}
+  - {name: resource, type: string, note: 'Target resource identifier; example 00000002-0000-0000-c000-000000000000.'}
+relationships: []
+unmodelled_entities:
+- name: WorkOrder
+  named_at: https://api-developer.dev.fieldops.centrica.com/
+  description: >-
+    "Manage WorkOrders for Annual Service Visit, Intermediate Break-down etc" — verbatim from the
+    FieldOps portal home page. No schema, no operations and no spec published anonymously.
+- name: Opportunity
+  named_at: https://api-developer.dev.fieldops.centrica.com/
+  description: >-
+    "Create and Manage Opportunities for Electrical Vehicle" — verbatim. No schema published.
+- name: AppointmentSlot
+  named_at: https://api-developer.dev.fieldops.centrica.com/
+  description: >-
+    "Get and Reserve Appointments for WorkOrders" — verbatim. No schema published. The implied
+    relationship AppointmentSlot belongs_to WorkOrder is stated in Centrica's own sentence but
+    cannot be confirmed against a contract, so it is not asserted in relationships[].
+id_prefixes: []
+domains:
+- name: Identity
+  entities: [TokenResponse]
+- name: Field Operations
+  entities: [WorkOrder, Opportunity, AppointmentSlot]
+  published: false
+coverage:
+  schemas_in_spec: 1
+  entities_modelled: 1
+  relationships_derived: 0
+  entities_named_but_unpublished: 3

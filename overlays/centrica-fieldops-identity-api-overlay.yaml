@@ -1,0 +1,77 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Centrica FieldOps Identity API
+  version: 1.0.0
+extends: openapi/centrica-fieldops-identity-api-openapi.yml
+x-apievangelist:
+  generated: '2026-07-27'
+  method: generated
+  source: >-
+    Derived from the verbatim Azure APIM export plus the FieldOps developer portal and the
+    portal's own management API. The original spec in openapi/ is never mutated; every
+    enhancement below lives only in this overlay.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: centrica
+    x-apievangelist-review: review.yml
+    x-apievangelist-harvest-date: '2026-07-27'
+    x-apievangelist-environment: development
+    x-apievangelist-access: partner-only
+    contact:
+      name: Centrica FieldOps API Management developer portal
+      url: https://api-developer.dev.fieldops.centrica.com/
+- target: $.info
+  update:
+    x-apievangelist-notes: >-
+      Exported verbatim from Centrica's own Azure API Management instance (service fieldopsdev001,
+      api-version 2022-04-01-preview) on 2026-07-27. This is the DEVELOPMENT environment; the
+      production gateway api.fieldops.centrica.com and production portal
+      api-developer.fieldops.centrica.com both answer 403 to anonymous requests. The FieldOps
+      portal advertises three further APIs — WorkOrder, Opportunity and Appointment Slots — none
+      of which are visible anonymously; the anonymous API list returns exactly one API.
+- target: $.servers
+  update:
+  - url: https://api.dev.fieldops.centrica.com/api/v1/identity
+    description: >-
+      FieldOps development gateway. The only reachable environment; the production gateway is
+      403 anonymously.
+- target: $.paths['/oauth2/token'].post
+  update:
+    tags:
+    - Identity
+    x-apievangelist-flow: client_credentials
+    x-apievangelist-consequence: >-
+      Mints a bearer credential. Treat as a secrets-handling operation: never log the request
+      body or the access_token, and never expose this operation to an unattended agent without
+      an authorised credential store.
+    x-apievangelist-downstream:
+    - WorkOrder API — manage WorkOrders for Annual Service Visit and Intermediate Break-down
+    - Opportunity API — create and manage Opportunities for Electric Vehicle services
+    - Appointment Slots API — get and reserve Appointments for WorkOrders
+    x-apievangelist-rate-limit: >-
+      Starter product: 5 calls/minute up to a maximum of 100 calls/week. Unlimited product:
+      unlimited, administrator approval required. See rate-limits/centrica-rate-limits.yml.
+- target: $.components.schemas.Oauth2TokenPost200ApplicationJsonResponse
+  update:
+    description: >-
+      OAuth 2.0 token response. expires_in, ext_expires_in, expires_on and not_before are
+      returned as STRINGS rather than integers — expires_in and ext_expires_in are seconds
+      ("3599" in the published example) and expires_on / not_before are Unix epoch seconds.
+      The shape is that of a Microsoft identity platform token response passed through.
+- target: $.components.securitySchemes.apiKeyHeader
+  update:
+    description: >-
+      Azure API Management subscription key, sent on every request. Obtained by signing up on the
+      developer portal and subscribing to the Starter or Unlimited product.
+- target: $.components.securitySchemes.apiKeyQuery
+  update:
+    description: >-
+      Same Azure API Management subscription key carried as a query parameter. Discouraged —
+      query strings are routinely logged by intermediaries; prefer the Ocp-Apim-Subscription-Key
+      header.
+x-apievangelist-gaps:
+- The spec declares no 4xx or 5xx responses at all, so error handling is entirely undocumented.
+- No security requirement is attached at the operation level; security is declared only globally.
+- No externalDocs, no contact and no license block in the original spec.
+- info.version is "1.0" while the path segment is v1 — no versioning policy reconciles the two.

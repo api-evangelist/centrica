@@ -117,6 +117,33 @@ probes:
   - url: https://www.centrica.com/
     status: 403
     note: Corporate site blocks anonymous automated fetches (WAF). /developers, /api and /data all 403 as well.
+  - url: https://www.centrica.com/.well-known/openid-configuration
+    status: 200
+    date: '2026-07-27'
+    note: >-
+      ENRICHMENT-ROUND CORRECTION to the blanket "centrica.com 403" finding. The corporate WAF
+      allows /.well-known/* and /robots.txt through. This path returns a complete OpenID Connect
+      discovery document (application/json) — issuer https://www.centrica.com/, endpoints under
+      /umbraco/delivery/api/v1/security/member/, grant types authorization_code, refresh_token
+      and client_credentials, scopes openid and offline_access, PKCE S256 and plain, RS256 id
+      tokens. It is the Umbraco CMS MEMBER-AUTHENTICATION surface of the corporate website, not
+      a Centrica developer API — but it is a real anonymous machine-readable OAuth2/OIDC
+      contract on a Centrica host. Saved to well-known/centrica-openid-configuration.json.
+  - url: https://www.centrica.com/.well-known/jwks
+    status: 200
+    date: '2026-07-27'
+    note: JWK Set with one RS256 signing key, referenced by jwks_uri above. Saved verbatim.
+  - url: https://www.centrica.com/umbraco/delivery/api/v2/content
+    status: 403
+    date: '2026-07-27'
+    note: >-
+      The Umbraco Content Delivery API itself is WAF-blocked, as are
+      /umbraco/swagger/delivery/swagger.json, /umbraco/swagger/index.html, /openapi.json and
+      /swagger.json. No OpenAPI could be harvested from the corporate host.
+  - url: https://www.centrica.com/robots.txt
+    status: 200
+    date: '2026-07-27'
+    note: 'Two lines: User-agent * / Disallow /. The entire corporate site is disallowed to crawlers.'
   - url: https://developer.centrica.com/
     status: 000
     note: DNS does not resolve.
@@ -218,6 +245,40 @@ probes:
   - url: https://api.github.com/orgs/ConnectedHomes
     status: 200
     note: Centrica Connected Home (Hive) — 163 public repositories, overwhelmingly forks of React Native, Kafka and infrastructure tooling. No OpenAPI, AsyncAPI or published API contract for a Centrica product.
+  - url: https://api-developer.dev.fieldops.centrica.com/
+    status: 200
+    date: '2026-07-27'
+    note: >-
+      ENRICHMENT-ROUND DETAIL. The portal's own header logo is served from /content/contoso-black.png —
+      the stock Azure API Management "Contoso" placeholder branding, never replaced. Its
+      config.json reports featureFlags "powCaptcha.Enabled": true.
+  - url: >-
+      https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/apis?api-version=2022-04-01-preview
+    status: 200
+    date: '2026-07-27'
+    note: >-
+      ENRICHMENT-ROUND DETAIL. Re-read on 2026-07-27, still count 1. The identity-api record now
+      also exposes the newer agent fields, and they are all empty: mcpProperties null,
+      a2aProperties null, isAgent false, agent null, jsonRpcProperties null. Direct evidence from
+      Centrica's own platform that no MCP, A2A or agent surface has been configured.
+      subscriptionRequired false on the API record itself; protocols ["https"] only.
+  - url: https://api-management.fieldops.centrica.com/
+    status: 403
+    date: '2026-07-27'
+    note: Production APIM management endpoint is closed anonymously, as is the production portal's config.json.
+  - url: https://www.postman.com/ (public API network search for "centrica" and "british gas")
+    status: 200
+    date: '2026-07-27'
+    note: >-
+      No official Centrica or British Gas Postman workspace or collection. Only unverified
+      personal teams with zero collections.
+  - url: https://registry.npmjs.org/-/v1/search?text=centrica
+    status: 200
+    date: '2026-07-27'
+    note: >-
+      No first-party package. Only "hive-watcher", a community MQTT bridge against the
+      undocumented Hive backend. PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist and
+      crates.io all returned no first-party Centrica SDK.
 
 specs:
   - path: openapi/centrica-fieldops-identity-api-openapi.yml

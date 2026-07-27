@@ -1,0 +1,105 @@
+generated: '2026-07-27'
+method: derived
+source: >-
+  openapi/centrica-fieldops-identity-api-openapi.yml, well-known/centrica-openid-configuration.json,
+  well-known/centrica-security.txt, and live probes of every Centrica host
+description: >-
+  Standards conformance for Centrica is thin and, on the energy-sector standards that matter,
+  entirely negative. The group implements generic web-API plumbing — OpenAPI 3.0.1, OAuth 2.0
+  client credentials, an OIDC discovery document on the corporate CMS — and implements none of
+  the consumer-energy data standards. That is the finding rather than a gap: Britain regulated
+  the smart-metering infrastructure (the licensed Smart DCC monopoly carrying SMETS2 traffic)
+  instead of writing a consumer data right, so there is no UK equivalent of the Australian
+  Consumer Data Right to conform to, and Centrica exited North America in January 2021, taking
+  it out of the Green Button / ESPI ecosystem entirely.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/centrica-fieldops-identity-api-openapi.yml declares openapi 3.0.1 and parses.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    FieldOps Identity API exposes POST /oauth2/token taking grant_type=client_credentials with
+    client_id and client_secret as application/x-www-form-urlencoded, returning a Bearer token
+    (RFC 6749 section 4.4). The centrica.com discovery document also advertises
+    authorization_code, refresh_token and client_credentials.
+- id: oidc-discovery
+  conforms: true
+  evidence: >-
+    https://www.centrica.com/.well-known/openid-configuration returns a complete OIDC discovery
+    document (issuer, authorization/token/userinfo/revocation/end_session endpoints, jwks_uri).
+    Note this is the Umbraco CMS member-authentication surface of the corporate website, not a
+    Centrica developer API.
+- id: rfc7517-jwks
+  conforms: true
+  evidence: https://www.centrica.com/.well-known/jwks returns a JWK Set with one RS256 signing key.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported ["plain", "S256"] in the discovery document.
+- id: rfc9116-security-txt
+  conforms: partial
+  evidence: >-
+    https://www.britishgas.co.uk/.well-known/security.txt returns 200 text/plain and carries a
+    policy URL, but omits the RFC 9116 REQUIRED Contact and Expires fields.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on every Centrica host probed.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    The harvested OpenAPI declares no 4xx/5xx responses at all, so no problem+json media type
+    is asserted anywhere.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation or sunset policy is published; no Sunset/Deprecation header contract.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published on any Centrica host.
+- id: cdr-energy
+  conforms: false
+  evidence: >-
+    not-applicable — the Australian Consumer Data Right energy sector does not reach Centrica;
+    Centrica has no Australian operations and no CDR register entry.
+- id: green-button-espi
+  conforms: false
+  evidence: >-
+    not-applicable — Centrica sold Direct Energy to NRG Energy on 5 January 2021 and exited North
+    America, so neither the Ontario Green Button regulation nor the US voluntary Green Button /
+    ESPI ecosystem touches any Centrica entity. No Green Button Alliance certification found.
+- id: ieee-2030.5
+  conforms: false
+  evidence: No IEEE 2030.5 (Smart Energy Profile 2.0) reference found on any Centrica property.
+- id: openadr
+  conforms: false
+  evidence: No OpenADR demand-response interface published.
+- id: ocpp
+  conforms: false
+  evidence: No OCPP charge-point interface published, including on the EV opportunity surface.
+- id: ocpi
+  conforms: false
+  evidence: No OCPI roaming interface published.
+- id: iec-cim-61968-61970
+  conforms: false
+  evidence: No IEC Common Information Model reference published.
+- id: smets2-smart-dcc
+  conforms: not-assessable
+  evidence: >-
+    British Gas is a licensed supplier and therefore a Smart DCC user carrying SMETS2 traffic,
+    but the DCC is a regulated industry network reached under licence, not a published API.
+    Conformance cannot be observed from outside.
+- id: desnz-non-domestic-smart-meter-data-access
+  conforms: true
+  evidence: >-
+    British Gas Business states it complies with the DESNZ non-domestic smart meter data access
+    requirement (part one in force 1 December 2022, part two 1 October 2024) — up to twelve
+    months of historic usage data free of charge to the customer or their nominated third party.
+    The compliance mechanism is a written request answered within ten working days, NOT an API.
+  source: https://www.britishgas.co.uk/business/blog/the-way-businesses-can-request-smart-meter-data-is-changing
+compliance_program:
+  published: false
+  certifications: []
+  note: >-
+    No trust centre, no compliance page and no named certification (SOC 2, ISO 27001, PCI DSS,
+    HIPAA, FedRAMP, CSA STAR) could be verified on any Centrica-controlled host.
+    trust.centrica.com does not resolve and www.centrica.com/security is WAF-blocked (403).
+    No Compliance pointer is emitted in apis.yml because nothing is published to point at.

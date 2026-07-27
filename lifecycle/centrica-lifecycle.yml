@@ -1,0 +1,61 @@
+generated: '2026-07-27'
+method: searched
+source: >-
+  https://api-developer.dev.fieldops.centrica.com/ plus the FieldOps Azure APIM management
+  API and openapi/centrica-fieldops-identity-api-openapi.yml
+description: >-
+  Centrica publishes no API lifecycle governance. There is no versioning policy page, no
+  deprecation policy, no Sunset/Deprecation header commitment, no changelog and no status
+  page on any Centrica, British Gas, Bord Gais Energy or Hive host. What can be recorded is
+  entirely structural: the FieldOps Identity API is versioned in the URI path (api/v1/identity),
+  sits at Azure APIM apiRevision 1 with isCurrent true, declares OpenAPI info.version "1.0",
+  and the FieldOps developer portal home page advertises a single availability figure —
+  "99.95% availability. Our APIs can be used for mission-critical systems." That claim is a
+  marketing statement on the DEVELOPMENT portal, not a contracted SLA document; no SLA terms,
+  credits regime or measurement window is published.
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: >-
+    APIM path "api/v1/identity"; OpenAPI servers[0] https://api.dev.fieldops.centrica.com/api/v1/identity;
+    OpenAPI info.version "1.0"; APIM apiRevision "1", isCurrent true.
+  policy_url: null
+  policy_published: false
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No RFC 8594 Sunset or Deprecation header support is documented, and no operation in the
+    harvested spec carries deprecated: true.
+sla:
+  url: null
+  published: false
+  uptime_target: '99.95%'
+  target_source: https://api-developer.dev.fieldops.centrica.com/
+  note: >-
+    Verbatim portal claim ("99.95% availability — Our APIs can be used for mission-critical
+    systems"). Advertised on the DEVELOPMENT environment portal with no supporting SLA
+    document, credits schedule or measurement definition.
+status_page: null
+status_page_note: >-
+  No status page found. status.centrica.com, status.britishgas.co.uk and
+  status.fieldops.centrica.com do not resolve; the FieldOps portal exposes no service-health
+  surface. British Gas communicates outages through its ordinary customer help pages, not a
+  machine-readable status feed.
+changelog: null
+changelog_note: No dated API changelog or release-notes surface exists on any Centrica host.
+environments:
+- name: development
+  portal: https://api-developer.dev.fieldops.centrica.com/
+  gateway: https://api.dev.fieldops.centrica.com/
+  anonymous_access: true
+  note: Only environment reachable anonymously. Self-serve sign-up is open.
+- name: production
+  portal: https://api-developer.fieldops.centrica.com/
+  gateway: https://api.fieldops.centrica.com/
+  anonymous_access: false
+  status: 403
+  note: Both production hosts answer 403 to anonymous requests; access is a partner arrangement.
+deprecated_operations: []

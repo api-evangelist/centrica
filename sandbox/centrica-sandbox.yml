@@ -1,0 +1,65 @@
+generated: '2026-07-27'
+method: searched
+source: https://api-developer.dev.fieldops.centrica.com/
+description: >-
+  Centrica publishes no sandbox in the usual sense — there are no test credentials, no magic
+  test identifiers, no fixture tooling and no documented test-vs-live key separation anywhere
+  on a Centrica property. What exists instead is a whole DEVELOPMENT ENVIRONMENT of the
+  FieldOps partner platform standing open on the public internet: api-developer.dev.fieldops.centrica.com
+  answers 200 anonymously, carries an open self-serve sign-up form, and publishes a Starter
+  product that requires a subscription but NOT administrator approval. That is the closest
+  thing to a try-before-you-partner surface Centrica offers, and it is recorded here as such
+  rather than as a curated sandbox. The matching production hosts both answer 403.
+type: development-environment
+curated_sandbox: false
+environments:
+- name: development
+  portal: https://api-developer.dev.fieldops.centrica.com/
+  gateway_base: https://api.dev.fieldops.centrica.com/api/v1/identity
+  anonymous_portal_access: true
+  self_serve_signup: true
+  signup_url: https://api-developer.dev.fieldops.centrica.com/signup
+  signin_url: https://api-developer.dev.fieldops.centrica.com/signin
+  reset_password_url: https://api-developer.dev.fieldops.centrica.com/reset-password
+  captcha: >-
+    Proof-of-work CAPTCHA is enabled on the portal (featureFlags "powCaptcha.Enabled": true in
+    https://api-developer.dev.fieldops.centrica.com/config.json).
+- name: production
+  portal: https://api-developer.fieldops.centrica.com/
+  gateway_base: https://api.fieldops.centrica.com/
+  anonymous_portal_access: false
+  status: 403
+  note: Closed to anonymous requests; access is a commercial partner arrangement.
+console:
+  available: true
+  kind: Azure API Management developer-portal interactive test console
+  url: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
+  note: >-
+    The stock APIM operation-details / try-it console. The portal home page links each of the
+    three advertised APIs (WorkOrder, Opportunity, Appointment Slots) with a "Try it out."
+    call to action, but only the Identity API is visible to an anonymous visitor — the
+    anonymous API list from the portal's management API returns exactly one API, count 1.
+credentials:
+  test_keys_published: false
+  key_prefixes: null
+  note: >-
+    Access requires a real Azure APIM subscription key obtained by signing up and subscribing to
+    a product. Centrica publishes no shared demo key, and none is invented here.
+test_data:
+  magic_values: []
+  test_cards: []
+  test_accounts: []
+  note: No test identifiers, fixture values or simulator inputs are published.
+time_simulation:
+  supported: false
+fixtures_or_triggers:
+  supported: false
+caveats:
+- The DEVELOPMENT environment is not offered as a sandbox — it appears to be an internal
+  partner environment that is simply publicly reachable, which is a finding in its own right.
+- The single anonymously visible operation mints OAuth2 access tokens; exercising it requires
+  real partner client credentials, which no public developer has.
+cross_links:
+  plans: plans/centrica-plans.yml
+  rate_limits: rate-limits/centrica-rate-limits.yml
+  authentication: authentication/centrica-authentication.yml

@@ -70,6 +70,38 @@ Token-issuing API on the Centrica FieldOps API Management platform, published on
 
 See [review.yml](review.yml) for every URL probed, its HTTP status, and the full mandate-versus-implementation record.
 
+## Artifacts
+
+Produced by the API Evangelist enrichment pipeline on 2026-07-27. Where a thing genuinely does
+not exist, the artifact records the absence with the probes that established it — that negative
+evidence is the point for a provider this closed.
+
+| Artifact | File | Method | Finding |
+| --- | --- | --- | --- |
+| OpenAPI | [openapi/](openapi/centrica-fieldops-identity-api-openapi.yml) | searched | One operation, exported verbatim from Centrica's own Azure APIM instance |
+| Overlay | [overlays/](overlays/centrica-fieldops-identity-api-overlay.yaml) | generated | Our enhancements and the spec's gaps; the harvest is never mutated |
+| Well-known | [well-known/](well-known/centrica-well-known.yml) | searched | 5 hosts probed, 3 documents found |
+| security.txt | [well-known/](well-known/centrica-security.txt) | searched | On britishgas.co.uk; no Contact or Expires field, so RFC 9116 partial |
+| OIDC discovery | [well-known/](well-known/centrica-openid-configuration.json) | searched | Real discovery doc on centrica.com — Umbraco CMS member auth, not a developer API |
+| Authentication | [authentication/](authentication/centrica-authentication.yml) | derived | APIM subscription key in header and query |
+| Conventions | [conventions/](conventions/centrica-conventions.yml) | derived | No idempotency, no pagination, no request-id, no error envelope |
+| Conformance | [conformance/](conformance/centrica-conformance.yml) | derived | OpenAPI/OAuth2/OIDC/JWKS/PKCE yes; every energy data standard no |
+| Lifecycle | [lifecycle/](lifecycle/centrica-lifecycle.yml) | searched | URI-path v1; no deprecation policy, no changelog, no status page |
+| Plans | [plans/](plans/centrica-plans.yml) | searched | The two stock APIM products, unpriced |
+| Rate limits | [rate-limits/](rate-limits/centrica-rate-limits.yml) | searched | 5 calls/min, 100 calls/week on Starter; unlimited on approval |
+| Sandbox | [sandbox/](sandbox/centrica-sandbox.yml) | searched | No curated sandbox — an internal DEV environment left publicly reachable |
+| Packages | [packages/](packages/centrica-packages.yml) | searched | Zero first-party SDKs across eight registries and both GitHub orgs |
+| Data model | [data-model/](data-model/centrica-data-model.yml) | derived | One entity; WorkOrder, Opportunity and AppointmentSlot named but unpublished |
+| MCP | [mcp/](mcp/centrica-mcp.yml) | derived | No server. Centrica's own APIM record reports `isAgent: false`, `mcpProperties: null` |
+| Agent skill | [skills/](skills/_index.yml) | generated | One skill on the one real operationId |
+| llms.txt | [llms/](llms/centrica-llms.txt) | generated | Centrica publishes none; /llms.txt is 404 on every host |
+| Domain security | [security/](security/centrica-domain-security.yml) | probed | TLS 1.3 + HSTS; DMARC p=reject on all four brand domains; no CAA, no DNSSEC |
+| Vulnerability disclosure | [security/](security/centrica-vulnerability-disclosure.yml) | searched | British Gas responsible-disclosure policy; no bug bounty |
+
+Not emitted, because the underlying thing does not exist: AsyncAPI/Webhooks, ChangeLog, CLI,
+Components, ErrorCatalog, DeclineCodes, OAuthScopes, GraphQL, Protobuf, ToolCrosswalk,
+StatusPage, Deprecation, Compliance, TrustCenter, Postman.
+
 ## Maintainers
 
 - Kin Lane — kin@apievangelist.com

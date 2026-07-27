@@ -21,7 +21,7 @@ description: >-
   is the Centrica FieldOps Azure API Management developer portal — a partner field-operations
   platform in its development environment — and Centrica publishes no open grid or market data
   of its own, leaving that to NESO, Elexon and the DNOs.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://www.britishgas.co.uk/aem6/etc/designs/britishgas/favicons/favicon-152x152.png
 tags:
 - Energy
 - United Kingdom
@@ -59,11 +59,52 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/centrica-fieldops-identity-api-openapi.yml
+  - type: Overlay
+    url: overlays/centrica-fieldops-identity-api-overlay.yaml
   - type: Documentation
     url: https://api-developer.dev.fieldops.centrica.com/apis
+  - type: APIReference
+    url: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
   - type: DeveloperPortal
     url: https://api-developer.dev.fieldops.centrica.com/
+  - type: Sandbox
+    name: FieldOps development environment and APIM test console
+    url: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
 common:
+- type: DomainSecurity
+  url: security/centrica-domain-security.yml
+- type: Authentication
+  url: authentication/centrica-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/centrica-vulnerability-disclosure.yml
+- type: Security
+  name: British Gas responsible disclosure policy
+  url: https://www.britishgas.co.uk/global-maintenance/responsible-disclosure.html
+- type: WellKnown
+  url: well-known/centrica-well-known.yml
+- type: SecurityTxt
+  url: well-known/centrica-security.txt
+- type: Conformance
+  url: conformance/centrica-conformance.yml
+- type: Conventions
+  url: conventions/centrica-conventions.yml
+- type: Lifecycle
+  url: lifecycle/centrica-lifecycle.yml
+- type: DataModel
+  url: data-model/centrica-data-model.yml
+- type: Packages
+  url: packages/centrica-packages.yml
+- type: Sandbox
+  url: sandbox/centrica-sandbox.yml
+- type: RateLimits
+  url: rate-limits/centrica-rate-limits.yml
+- type: Plans
+  name: Centrica FieldOps APIM products, captured
+  url: plans/centrica-plans.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/centrica-llms.txt
 - type: Website
   url: https://www.centrica.com/
 - type: Documentation
@@ -74,8 +115,18 @@ common:
   url: https://api-developer.dev.fieldops.centrica.com/signup
 - type: Plans
   url: https://api-developer.dev.fieldops.centrica.com/products
+- type: APIReference
+  url: https://api-developer.dev.fieldops.centrica.com/apis
+- type: Login
+  url: https://api-developer.dev.fieldops.centrica.com/signin
 - type: Blog
   url: https://www.britishgas.co.uk/business/blog
+- type: TermsOfService
+  name: British Gas terms and conditions
+  url: https://www.britishgas.co.uk/terms-and-conditions.html
+- type: PrivacyPolicy
+  name: British Gas privacy policy
+  url: https://www.britishgas.co.uk/privacy-policy.html
 - type: LinkedIn
   url: https://www.linkedin.com/company/centrica
 - type: GitHubOrganization

@@ -1,0 +1,22 @@
+generated: '2026-07-27'
+method: derived
+source: openapi/centrica-fieldops-identity-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: Ocp-Apim-Subscription-Key
+  sources:
+  - openapi/centrica-fieldops-identity-api-openapi.yml
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: subscription-key
+  sources:
+  - openapi/centrica-fieldops-identity-api-openapi.yml
