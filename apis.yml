@@ -71,6 +71,8 @@ apis:
     name: FieldOps development environment and APIM test console
     url: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
 common:
+- type: MCPServer
+  url: mcp/centrica-mcp.yml
 - type: DomainSecurity
   url: security/centrica-domain-security.yml
 - type: Authentication
