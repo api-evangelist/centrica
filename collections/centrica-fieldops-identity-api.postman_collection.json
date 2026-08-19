@@ -1,0 +1,561 @@
+{
+  "item": [
+    {
+      "id": "87b81992-e7b4-4716-8fc7-6945cdc1bb68",
+      "name": "OAuth Access Token",
+      "request": {
+        "name": "OAuth Access Token",
+        "description": {
+          "content": "Get Access token",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "oauth2",
+            "token"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "grant_type",
+              "value": "<string>"
+            },
+            {
+              "disabled": false,
+              "key": "client_id",
+              "value": "<string>"
+            },
+            {
+              "disabled": false,
+              "key": "client_secret",
+              "value": "<string>"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "d0a91723-2264-4836-a311-f85342b66572",
+          "name": "Token response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "oauth2",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Ocp-Apim-Subscription-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "0",
+                  "value": "g"
+                },
+                {
+                  "disabled": false,
+                  "key": "1",
+                  "value": "r"
+                },
+                {
+                  "disabled": false,
+                  "key": "2",
+                  "value": "a"
+                },
+                {
+                  "disabled": false,
+                  "key": "3",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "4",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "5",
+                  "value": "_"
+                },
+                {
+                  "disabled": false,
+                  "key": "6",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "7",
+                  "value": "y"
+                },
+                {
+                  "disabled": false,
+                  "key": "8",
+                  "value": "p"
+                },
+                {
+                  "disabled": false,
+                  "key": "9",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "10",
+                  "value": "="
+                },
+                {
+                  "disabled": false,
+                  "key": "11",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "12",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "13",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "14",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "15",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "16",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "17",
+                  "value": "_"
+                },
+                {
+                  "disabled": false,
+                  "key": "18",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "19",
+                  "value": "r"
+                },
+                {
+                  "disabled": false,
+                  "key": "20",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "21",
+                  "value": "d"
+                },
+                {
+                  "disabled": false,
+                  "key": "22",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "23",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "24",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "25",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "26",
+                  "value": "a"
+                },
+                {
+                  "disabled": false,
+                  "key": "27",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "28",
+                  "value": "s"
+                },
+                {
+                  "disabled": false,
+                  "key": "29",
+                  "value": "&"
+                },
+                {
+                  "disabled": false,
+                  "key": "30",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "31",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "32",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "33",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "34",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "35",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "36",
+                  "value": "_"
+                },
+                {
+                  "disabled": false,
+                  "key": "37",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "38",
+                  "value": "d"
+                },
+                {
+                  "disabled": false,
+                  "key": "39",
+                  "value": "="
+                },
+                {
+                  "disabled": false,
+                  "key": "40",
+                  "value": "<"
+                },
+                {
+                  "disabled": false,
+                  "key": "41",
+                  "value": "<"
+                },
+                {
+                  "disabled": false,
+                  "key": "42",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "43",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "44",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "45",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "46",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "47",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "48",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "49",
+                  "value": "d"
+                },
+                {
+                  "disabled": false,
+                  "key": "50",
+                  "value": ">"
+                },
+                {
+                  "disabled": false,
+                  "key": "51",
+                  "value": ">"
+                },
+                {
+                  "disabled": false,
+                  "key": "52",
+                  "value": "&"
+                },
+                {
+                  "disabled": false,
+                  "key": "53",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "54",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "55",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "56",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "57",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "58",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "59",
+                  "value": "_"
+                },
+                {
+                  "disabled": false,
+                  "key": "60",
+                  "value": "s"
+                },
+                {
+                  "disabled": false,
+                  "key": "61",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "62",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "63",
+                  "value": "r"
+                },
+                {
+                  "disabled": false,
+                  "key": "64",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "65",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "66",
+                  "value": "="
+                },
+                {
+                  "disabled": false,
+                  "key": "67",
+                  "value": "<"
+                },
+                {
+                  "disabled": false,
+                  "key": "68",
+                  "value": "<"
+                },
+                {
+                  "disabled": false,
+                  "key": "69",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "70",
+                  "value": "l"
+                },
+                {
+                  "disabled": false,
+                  "key": "71",
+                  "value": "i"
+                },
+                {
+                  "disabled": false,
+                  "key": "72",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "73",
+                  "value": "n"
+                },
+                {
+                  "disabled": false,
+                  "key": "74",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "75",
+                  "value": "s"
+                },
+                {
+                  "disabled": false,
+                  "key": "76",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "77",
+                  "value": "c"
+                },
+                {
+                  "disabled": false,
+                  "key": "78",
+                  "value": "r"
+                },
+                {
+                  "disabled": false,
+                  "key": "79",
+                  "value": "e"
+                },
+                {
+                  "disabled": false,
+                  "key": "80",
+                  "value": "t"
+                },
+                {
+                  "disabled": false,
+                  "key": "81",
+                  "value": ">"
+                },
+                {
+                  "disabled": false,
+                  "key": "82",
+                  "value": ">"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": \"3599\",\n  \"ext_expires_in\": \"3599\",\n  \"expires_on\": \"1623320276\",\n  \"not_before\": \"1623316376\",\n  \"resource\": \"00000002-0000-0000-c000-000000000000\",\n  \"access_token\": \"XXXXXXX\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dev.fieldops.centrica.com/api/v1/identity",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea8db17b-6852-46d4-9f2e-12bc69c1b957",
+    "name": "Identity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API to Generate the Token",
+      "type": "text/plain"
+    }
+  }
+}

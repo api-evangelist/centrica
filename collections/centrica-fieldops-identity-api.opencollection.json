@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Identity API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Ocp-Apim-Subscription-Key",
+      "value": "{{Ocp-Apim-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuth Access Token",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.dev.fieldops.centrica.com/api/v1/identity/oauth2/token",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "grant_type",
+              "value": ""
+            },
+            {
+              "name": "client_id",
+              "value": ""
+            },
+            {
+              "name": "client_secret",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Get Access token"
+    }
+  ],
+  "bundled": true
+}

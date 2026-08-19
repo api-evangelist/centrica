@@ -2,24 +2,21 @@ generated: '2026-07-27'
 method: derived
 status: candidate
 source: openapi/centrica-fieldops-identity-api-openapi.yml
-description: >-
-  Centrica publishes no MCP server. No hosted or remote server was found in the MCP registry,
-  on npm under @modelcontextprotocol or any Centrica scope, in either Centrica GitHub
-  organisation (github.com/Centrica has 0 public repositories; github.com/ConnectedHomes has
-  163, all forks or Hive app tooling and none an API contract), or on any Centrica developer
-  surface. The FieldOps Azure APIM instance is a recent enough build to expose MCP fields in
-  its management API — the identity-api record carries "mcpProperties": null, "a2aProperties":
-  null and "isAgent": false — which confirms directly from Centrica's own platform that no MCP
-  or agent surface has been configured. What follows is therefore a CANDIDATE tool list derived
-  mechanically from the one harvested OpenAPI operation, not a published server.
+description: 'Centrica publishes no MCP server. No hosted or remote server was found in the MCP registry,
+  on npm under @modelcontextprotocol or any Centrica scope, in either Centrica GitHub organisation (github.com/Centrica
+  has 0 public repositories; github.com/ConnectedHomes has 163, all forks or Hive app tooling and none
+  an API contract), or on any Centrica developer surface. The FieldOps Azure APIM instance is a recent
+  enough build to expose MCP fields in its management API — the identity-api record carries "mcpProperties":
+  null, "a2aProperties": null and "isAgent": false — which confirms directly from Centrica''s own platform
+  that no MCP or agent surface has been configured. What follows is therefore a CANDIDATE tool list derived
+  mechanically from the one harvested OpenAPI operation, not a published server.'
 server:
   name: centrica-fieldops
   published: false
   transport: null
   url: null
 evidence:
-- source: >-
-    https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/apis?api-version=2022-04-01-preview
+- source: https://api-management.dev.fieldops.centrica.com/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/fieldopsdev001/apis?api-version=2022-04-01-preview
   status: 200
   finding: 'identity-api properties: mcpProperties null, a2aProperties null, isAgent false, agent null.'
 - source: https://api.github.com/orgs/Centrica
@@ -30,25 +27,27 @@ evidence:
   finding: 163 public repositories, no MCP server and no API contract for a Centrica product.
 tools:
 - name: get_fieldops_access_token
-  description: >-
-    Exchange FieldOps partner client credentials for an OAuth 2.0 bearer access token used
+  description: Exchange FieldOps partner client credentials for an OAuth 2.0 bearer access token used
     against the Centrica FieldOps WorkOrder, Opportunity and Appointment Slots APIs.
   source_operation: openapi/centrica-fieldops-identity-api-openapi.yml#oauth-access-token
   method: POST
   path: /oauth2/token
-  input_schema_source: >-
-    requestBody application/x-www-form-urlencoded — grant_type, client_id, client_secret
+  input_schema_source: requestBody application/x-www-form-urlencoded — grant_type, client_id, client_secret
     (all string), plus the Ocp-Apim-Subscription-Key header or subscription-key query parameter.
-  consequence: >-
-    Mints a credential. An agent tool wrapping this operation handles secrets and should never
+  consequence: Mints a credential. An agent tool wrapping this operation handles secrets and should never
     be exposed without an explicit human-authorised credential store.
 coverage:
   openapi_operations: 1
   tools_derived: 1
   tools_published: 0
-notes: >-
-  A single-tool MCP server over a token-mint operation is of no practical agent value on its
-  own. It is recorded for completeness and to mark the surface, and would only become useful if
-  Centrica exposed the WorkOrder, Opportunity and Appointment Slots APIs that its own portal
-  advertises but does not publish anonymously. No tool crosswalk artifact is emitted: a
-  crosswalk requires a real MCP or GraphQL surface to bind against, and neither exists.
+notes: 'A single-tool MCP server over a token-mint operation is of no practical agent value on its own.
+  It is recorded for completeness and to mark the surface, and would only become useful if Centrica exposed
+  the WorkOrder, Opportunity and Appointment Slots APIs that its own portal advertises but does not publish
+  anonymously. No tool crosswalk artifact is emitted: a crosswalk requires a real MCP or GraphQL surface
+  to bind against, and neither exists.'
+deployment:
+  mode: none
+  verified: derived
+  tools: 1
+  checked: '2026-08-12'
+  source: catalog MCP census
