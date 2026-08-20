@@ -53,6 +53,11 @@ apis:
   baseURL: https://api.dev.fieldops.centrica.com/api/v1/identity
   tags:
   - Identity
+  - Authentication
+  - Field Service
+  - Partner
+  tags_raw:
+  - Identity
   - OAuth2
   - Field Service
   - Partner
