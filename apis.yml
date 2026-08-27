@@ -37,35 +37,16 @@ created: '2026-07-27'
 modified: '2026-07-27'
 specificationVersion: '0.23'
 apis:
-- aid: centrica:centrica-fieldops-identity-api
-  name: Centrica FieldOps Identity API
-  description: >-
-    Token-issuing API on the Centrica FieldOps API Management platform, published on
-    Centrica's Azure API Management developer portal. A single POST /oauth2/token
-    operation exchanges an OAuth2 client_credentials grant (client_id + client_secret,
-    form-encoded) for a bearer access token used against the FieldOps WorkOrder,
-    Opportunity and Appointment Slots APIs. Harvested verbatim from the portal's
-    development environment on 2026-07-27; the production hosts api.fieldops.centrica.com
-    and api-developer.fieldops.centrica.com both answer 403 anonymously. Calls also carry
-    an Azure APIM subscription key (Ocp-Apim-Subscription-Key header or subscription-key
-    query parameter).
+- aid: centrica:centrica-oauth2-api
+  name: Centrica Oauth2 API
+  description: The Oauth2 API from Centrica — 1 operation(s) for oauth2.
   humanURL: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
   baseURL: https://api.dev.fieldops.centrica.com/api/v1/identity
   tags:
-  - Identity
-  - Authentication
-  - Field Service
-  - Partner
-  tags_raw:
-  - Identity
-  - OAuth2
-  - Field Service
-  - Partner
+  - Oauth2
   properties:
   - type: OpenAPI
-    url: openapi/centrica-fieldops-identity-api-openapi.yml
-  - type: Overlay
-    url: overlays/centrica-fieldops-identity-api-overlay.yaml
+    url: openapi/centrica-oauth2-api-openapi.yml
   - type: Documentation
     url: https://api-developer.dev.fieldops.centrica.com/apis
   - type: APIReference
@@ -73,9 +54,10 @@ apis:
   - type: DeveloperPortal
     url: https://api-developer.dev.fieldops.centrica.com/
   - type: Sandbox
-    name: FieldOps development environment and APIM test console
     url: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
 common:
+- type: Overlay
+  url: overlays/centrica-fieldops-identity-api-overlay.yaml
 - type: MCPServer
   url: mcp/centrica-mcp.yml
 - type: DomainSecurity
