@@ -21,6 +21,18 @@ description: >-
   is the Centrica FieldOps Azure API Management developer portal — a partner field-operations
   platform in its development environment — and Centrica publishes no open grid or market data
   of its own, leaving that to NESO, Elexon and the DNOs.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.britishgas.co.uk/aem6/etc/designs/britishgas/favicons/favicon-152x152.png
 tags:
 - Energy
