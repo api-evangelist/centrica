@@ -55,6 +55,8 @@ apis:
   humanURL: https://api-developer.dev.fieldops.centrica.com/api-details#api=identity-api
   baseURL: https://api.dev.fieldops.centrica.com/api/v1/identity
   tags:
+  - Authentication
+  tags_raw:
   - Oauth2
   properties:
   - type: OpenAPI
