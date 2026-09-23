@@ -1,0 +1,25 @@
+{
+  "provider": "centrica",
+  "sources": [
+    "_original/centrica-fieldops-identity-api-openapi.yml"
+  ],
+  "outputs": [
+    "centrica-oauth2-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "centrica-fieldops-identity-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "centrica-fieldops-identity-api-openapi.yml: tagged paths POST /oauth2/token -> Oauth2",
+    "centrica-fieldops-identity-api-openapi.yml: declared missing tag: Oauth2",
+    "superseded outputs removed: centrica-o-auth2-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 1 total)"
+  ],
+  "skipped": [
+    "centrica-o-auth2-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

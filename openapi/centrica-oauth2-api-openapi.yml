@@ -9,7 +9,7 @@ security:
 - apiKeyHeader: []
 - apiKeyQuery: []
 tags:
-- name: Oauth2
+- name: OAuth2
 paths:
   /oauth2/token:
     post:
@@ -45,7 +45,7 @@ paths:
                 resource: 00000002-0000-0000-c000-000000000000
                 access_token: XXXXXXX
       tags:
-      - Oauth2
+      - OAuth2
 components:
   schemas:
     Oauth2TokenPost200ApplicationJsonResponse:
