@@ -78,3 +78,29 @@ notes: >-
   a commercial API packaging layer. Recorded verbatim rather than interpreted — the
   5 calls/minute and 100 calls/week figures are Centrica's own published text, not an
   inference.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - negotiated
+  units:
+  - request
+  plans:
+  - name: Starter
+    access: free
+    model: metered
+    model_how: derived
+    units:
+    - request
+    periods:
+    - minute
+    - week
+  - name: Unlimited
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
